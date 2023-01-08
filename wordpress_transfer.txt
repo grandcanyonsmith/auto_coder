@@ -1,0 +1,15 @@
+1. Set up a new subdomain in the Amazon Web Services (AWS) account associated with the website.
+
+2. Download a backup of the WordPress website from the host to the local machine.
+
+3. Log into the AWS Console and create a new Amazon EC2 instance for the subdomain.
+
+4. Configure the instance for the WordPress application by setting up the necessary software (such as PHP, Apache, and MySQL).
+
+5. Upload the WordPress backup file to the instance.
+
+6. Configure the Apache web server to send incoming requests from the subdomain to the WordPress application.
+
+7. Configure the DNS records in the AWS account to point the subdomain to the IP address of the instance.
+
+8. Test to ensure that the website is up and running on the subdomain.

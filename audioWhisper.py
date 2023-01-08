@@ -10,11 +10,12 @@ import joblib
 import openai
 import speech_recognition as sr
 import whisper
-from aws_polly import main as aws_polly_tts
-from open_ai import OpenAIConversation
 from pydub import AudioSegment
 
-conversation_history = deque(maxlen=100)
+from aws_polly import main as aws_polly_tts
+from open_ai import OpenAIConversation
+
+conversation_history = deque(maxlen=10)
 
 
 def save_conversation_history(conversation_path, response, speaker):

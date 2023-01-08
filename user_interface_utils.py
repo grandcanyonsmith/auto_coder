@@ -63,7 +63,8 @@ def let_user_select_which_changes(ai_generated_suggestions):
         # add 0. ALL to the beginning of the listF
         ai_generated_suggestions.insert(0, "All")
         ai_generated_suggestions.insert(1, "None")
-        ai_generated_suggestions.insert(2, input("Enter your own suggestion: "))
+        ai_generated_suggestions.insert(
+            2, input("Enter your own suggestion: "))
         if "All" in ai_generated_suggestions:
             print("All")
         # Create a list of questions for the user to answer
@@ -92,9 +93,11 @@ def allow_user_to_select_suggestions(ai_generated_suggestions):
     """Allows the user to select which suggestions they would like to implement."""
     try:
         # Convert the string of suggestions into a list
-        ai_generated_suggestions = convert_suggestions_to_list(ai_generated_suggestions)
+        ai_generated_suggestions = convert_suggestions_to_list(
+            ai_generated_suggestions)
         # Let the user select which changes they would like to make
-        selected_suggestions = let_user_select_which_changes(ai_generated_suggestions)
+        selected_suggestions = let_user_select_which_changes(
+            ai_generated_suggestions)
         # Convert the list of selected suggestions into a string
         selected_suggestions = convert_list_to_string(selected_suggestions)
         return selected_suggestions
@@ -113,7 +116,8 @@ class TestSuggestionFunctions(unittest.TestCase):
             "Add more features",
             "Optimize the code",
         ]
-        self.assertEqual(convert_suggestions_to_list(suggestions), expected_result)
+        self.assertEqual(convert_suggestions_to_list(
+            suggestions), expected_result)
 
     def test_strip_after_int(self):
         suggestion = "1. Make changes to the code"
@@ -134,7 +138,8 @@ class TestSuggestionFunctions(unittest.TestCase):
             "3. Optimize the code",
         ]
         self.assertEqual(
-            add_number_to_selected_suggestions(selected_suggestions), expected_result
+            add_number_to_selected_suggestions(
+                selected_suggestions), expected_result
         )
 
     def test_convert_list_to_string(self):
@@ -146,7 +151,8 @@ class TestSuggestionFunctions(unittest.TestCase):
         expected_result = (
             "1. Make changes to the code\n2. Add more features\n3. Optimize the code"
         )
-        self.assertEqual(convert_list_to_string(selected_suggestions), expected_result)
+        self.assertEqual(convert_list_to_string(
+            selected_suggestions), expected_result)
 
 
 if __name__ == "__main__":

@@ -57,7 +57,8 @@ class CodeImprovement:
         root = tk.Tk()
         frame = tk.Frame(root)
         frame.pack()
-        label = tk.Label(frame, text="Select the suggestions you want to implement.")
+        label = tk.Label(
+            frame, text="Select the suggestions you want to implement.")
         listbox = tk.Listbox(frame, selectmode="multiple")
         listbox.config(
             width=0,
@@ -93,7 +94,8 @@ class CodeImprovement:
         """
 
         selected_items = listbox.curselection()
-        self.selected_suggestions = [listbox.get(item) for item in selected_items]
+        self.selected_suggestions = [
+            listbox.get(item) for item in selected_items]
         print(self.selected_suggestions)
         root = listbox.master
         root.destroy()
@@ -154,13 +156,16 @@ if __name__ == "__main__":
     improvement_categories = code_improvement.get_possible_improvement_categories()
 
     # Select the improvement categories to implement
-    selected_categories = allow_user_to_select_suggestions(improvement_categories)
+    selected_categories = allow_user_to_select_suggestions(
+        improvement_categories)
 
     # Get the improvement actions for each selected improvement category
-    improvement_actions = code_improvement.get_improvement_actions(selected_categories)
+    improvement_actions = code_improvement.get_improvement_actions(
+        selected_categories)
 
     # Select the improvements to implement
-    selected_improvements = allow_user_to_select_suggestions(improvement_actions)
+    selected_improvements = allow_user_to_select_suggestions(
+        improvement_actions)
     # Apply the selected improvements to the code
     code_improvement.apply_improvements(selected_improvements)
 
