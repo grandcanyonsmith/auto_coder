@@ -1,5 +1,17 @@
 import json
 import datetime
+import time
+import json
+import re
+
+import transformers
+from nltk import pos_tag
+from nltk.corpus import stopwords, wordnet
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+from nltk.tokenize import word_tokenize
+from transformers import pipeline
+
+start = time.time()
 
 
 def load_conversation(file_name):
@@ -56,7 +68,7 @@ def create_timestamped_summaries(conversation, message_count):
     Creates a one-line summary every `message_count` lines, with a key of `type` and value of `summary`.
     """
     message_count = len(conversation) // message_count
-    summary_lines = [
+    return [
         create_timestamped_summary(
             conversation[i]["timestamp"],
             conversation[i + message_count - 1]["timestamp"],
@@ -65,8 +77,6 @@ def create_timestamped_summaries(conversation, message_count):
         for i, line in enumerate(conversation)
         if i % message_count == 0
     ]
-
-    return summary_lines
 
 
 def replace_messages_with_timestamped_summaries(conversation, summary_lines):
@@ -110,23 +120,101 @@ def create_summary_with_last_messages(text):
     Creates a summary
     returns a one-line summary
     """
+    return main(text)
 
 
-def format_summary_json(new_summary):
-    """
-    returns {"timestamp": {range of first to last timestamp}, "type": "{conversation_type... in this case,'summary'}", "text": "{one_line_summary_of_past_20_lines}}
-    """
+def format_summary_json(start, end, new_summary):
+    return {
+        "timestamp": {"start": start, "end": end},
+        "type": "summary",
+        "text": new_summary,
+    }
 
 
-def replace_text_with_summary():
+def replace_text_with_summary(new_summary):
     """
     takes that formatted json summary and replaces the last x amount of lines that it st summarized with it. then it writes it to the converson.jsonl file
     """
+    conversation = load_conversation(conversation_file_name)
+    start, end = get_start_and_end_timestamps(conversation)
+    formatted_summary = format_summary_json(start, end, new_summary)
+    # conversation = load_conversation(conversation_file_name)
+    print(formatted_summary)
+    return formatted_summary
+
+
+def replace_last_lines_with_summary(conversation_file, summary):
+    # Read in the conversation from the file
+    with open(conversation_file, "r") as file:
+        conversation = file.readlines()
+        file.close()
+
+    # Erase the last 20 lines of the conversation
+    conversation = conversation[:-20]
+
+    # Add the new summary to the end of the conversation
+    conversation.append(json.dumps(summary))
+
+    # Write the updated conversation to the file
+    with open(conversation_file, "w") as file:
+        file.writelines(conversation)
+        file.close()
+
+
+def summarize_text(text):
+    # pass text to Transformer's Summarization object
+    summarizer = pipeline("summarization")
+
+    return summarizer(text, max_length=100, min_length=30, do_sample=False)[0][
+        "summary_text"
+    ]
+
+
+def clean_text(text):
+    text = " ".join(text.split())
+    return re.sub("[^A-Za-z0-9 ]+", "", text)
+
+
+def read_text_file(filename):
+    with open(filename, "r") as f:
+        text = f.read()
+    return text
+
+
+def lemmatize_text(text):
+    lemmatizer = WordNetLemmatizer()
+    return " ".join([lemmatizer.lemmatize(word) for word in text.split()])
+
+
+# remove stop words
+def remove_stop_words(text):
+    stop_words = set(stopwords.words("english"))
+    word_tokens = word_tokenize(text)
+    return " ".join([word for word in word_tokens if word not in stop_words])
+
+
+def stem_text(text):
+    stemmer = PorterStemmer()
+    return " ".join([stemmer.stem(word) for word in text.split()])
+
+
+def main(text):
+    text = clean_text(text)
+    text = remove_stop_words(text)
+    text = stem_text(text)
+    text = lemmatize_text(text)
+
+    text = summarize_text(text)
+    print(text)
+    return text
 
 
 conversation_file_name = "conversation.jsonl"  # Declare a variable to store the file
 
 message_count_limit = 20  # Declare a variable to store the loop limit
 text = get_last_messages(conversation_file_name, message_count_limit)
-print(text)
-# next steps are to stem, tokenize, lemmantize, remove stopwords, punctuation, and then summarize
+new_summary = create_summary_with_last_messages(text)
+r = replace_text_with_summary(new_summary)
+replace_last_lines_with_summary(conversation_file_name, r)
+end = time.time()
+print(end - start)
