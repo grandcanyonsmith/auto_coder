@@ -1,4 +1,3 @@
-
 {"message": "I wanted to ask about the timeline for the project", "timestamp": 1598845720, "speaker": "Employee", "type": "Statement"}
 {"message": "The project deadline is Thursday of next week", "timestamp": 1598845740, "speaker": "Boss", "type": "Answer"}
 {"message": "Do you need any help to finish on time?", "timestamp": 1598845760, "speaker": "Boss", "type": "Question"}
@@ -18,4 +17,5 @@
 {"message": "Is there anything else you wanted to discuss?", "timestamp": 1598846040, "speaker": "Boss", "type": "Question"}
 {"message": "I think that's it", "timestamp": 1598846060, "speaker": "Employee", "type": "Statement"}
 {"message": "Okay, great. Have a nice day!", "timestamp": 1598846080, "speaker": "Boss", "type": "Statement"}
+{"message": "You too, thanks again!", "timestamp": 1598846100, "speaker": "Employee", "type": "Statement"}
 {"message": "You too, thanks again!", "timestamp": 1598846100, "speaker": "Employee", "type": "Statement"}
