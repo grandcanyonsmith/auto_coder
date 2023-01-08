@@ -1,0 +1,18 @@
+{"speaker": "Boss", "message": "Good morning, how can I help you?"}
+{"speaker": "Employee", "message": "I need to take a day off tomorrow."}
+{"speaker": "Boss", "message": "That's no problem, just let me know when you'll be back."}
+{"speaker": "Employee", "message": "Thank you, I'll be back the day after tomorrow."}
+{"speaker": "Boss", "message": "Alright, just make sure to catch up on any work you miss while you're gone."}
+{"speaker": "Employee", "message": "Of course, I'll make sure to do that. Is there anything specific I need to do before I leave?"}
+{"speaker": "Boss", "message": "No, everything seems to be in order. Just make sure to let your team know that you'll be away and if there are any pressing issues they can reach out to me."}
+{"speaker": "Employee", "message": "Got it. I'll send out a message to the team now."}
+{"speaker": "Boss", "message": "Great. Is there anything else you need before you take off?"}
+{"speaker": "Employee", "message": "No, that's everything. Thank you for your understanding."}
+{"speaker": "Boss", "message": "Of course. Take care and have a good time."}
+{"speaker": "Employee", "message": "I will, thanks again."}
+{"speaker": "Boss", "message": "You're welcome. Have a safe trip."}
+{"speaker": "Employee", "message": "I will. Goodbye for now."}
+{"speaker": "Boss", "message": "Goodbye, and have a good day."}
+{"speaker": "Employee", "message": "You too, see you when I get back."}
+{"speaker": "Boss", "message": "Sounds good. Have a great time."}
+{"speaker": "Employee", "message": "Thank you, I will. Bye."}

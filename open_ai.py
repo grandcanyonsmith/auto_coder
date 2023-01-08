@@ -4,10 +4,11 @@ import logging
 import os
 from collections import deque
 
-import environ
+# import environ
 import openai
 
-openai.api_key = os.environ.get("OPENAI_API_KEY")
+# openai.api_key = os.environ.get("OPENAI_API_KEY")
+
 conversation_history_path = "files/text/open_ai_responses.jsonl"
 
 
