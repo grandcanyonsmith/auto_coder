@@ -1,4 +1,3 @@
-
 import logging
 import os
 import random
@@ -12,7 +11,9 @@ audio_format = "mp3"  # Audio format
 voices = ["Joanna"]  # List of available voices
 
 # Logging configuration
-logging.basicConfig(filename="files/logs/aws_polly.log", level=logging.INFO)  # Configure logging
+logging.basicConfig(
+    filename="files/logs/aws_polly.log", level=logging.INFO
+)  # Configure logging
 
 
 def synthesize_speech(
@@ -89,7 +90,9 @@ def main(text_to_speech):
             return
 
         # Set the output file name
-        output_file_name = f"files/audio/output_aws_polly.{audio_format}"  # Set the output file name
+        output_file_name = (
+            f"files/audio/output_aws_polly.{audio_format}"  # Set the output file name
+        )
 
         # Choose a random voice
         voice_id = voices[random.randint(0, len(voices) - 1)]  # Choose a random voice
@@ -109,5 +112,3 @@ def main(text_to_speech):
         delete_audio_file(output_file_name)  # Delete the audio file
     except Exception as e:
         logging.error(e)
-
-

@@ -56,7 +56,7 @@ def create_timestamped_summaries(conversation, message_count):
     Creates a one-line summary every `message_count` lines, with a key of `type` and value of `summary`.
     """
     message_count = len(conversation) // message_count
-    summary_lines = [
+    return [
         create_timestamped_summary(
             conversation[i]["timestamp"],
             conversation[i + message_count - 1]["timestamp"],
@@ -65,8 +65,6 @@ def create_timestamped_summaries(conversation, message_count):
         for i, line in enumerate(conversation)
         if i % message_count == 0
     ]
-
-    return summary_lines
 
 
 def replace_messages_with_timestamped_summaries(conversation, summary_lines):
@@ -104,13 +102,15 @@ def get_last_messages(conversation_file, message_count):
     last_messages = extract_last_messages(conversation, message_count)
     return generate_message_text(last_messages)
 
+# use convert to get sum
+
 
 def create_summary_with_last_messages(text):
     """
     Creates a summary
     returns a one-line summary
     """
-
+    # use one line summary tool
 
 def format_summary_json(new_summary):
     """

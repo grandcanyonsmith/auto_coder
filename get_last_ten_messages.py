@@ -1,11 +1,11 @@
-
 import json
 
 # Declare a variable to store the file name
-file_name = 'conversation.jsonl'
+file_name = "conversation.jsonl"
 
 # Declare a variable to store the loop limit
-message_limit = 10
+message_limit = 20
+
 
 def get_last_ten_messages(file):
     """
@@ -14,17 +14,19 @@ def get_last_ten_messages(file):
     # Use a try/except block to capture and handle any errors that may occur when opening the file.
     try:
         # open the file
-        with open(file_name, 'r') as file:
+        with open(file_name, "r") as file:
             # read the file
             file_data = file.readlines()
             # get the last 10 messages using a list comprehension
-            last_ten_messages = [json.loads(message_json) for message_json in file_data[-message_limit:]]
+            last_ten_messages = [
+                json.loads(message_json) for message_json in file_data[-message_limit:]
+            ]
             # create an empty string
             message_text = ""
             # loop through the last 10 messages
             for message_json in last_ten_messages:
                 # get the message key value
-                message_value = message_json['message']
+                message_value = message_json["message"]
                 # add the message value to the string
                 message_text += f"{message_value} "
 
@@ -37,6 +39,6 @@ def get_last_ten_messages(file):
     # close the file
     file.close()
 
+
 # call the function
 get_last_ten_messages(file_name)
-

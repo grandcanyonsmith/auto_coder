@@ -12,6 +12,8 @@ import openai
 from inquirer.themes import GreenPassion
 from user_interface_utils import allow_user_to_select_suggestions
 
+openai.api_key = "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"
+
 
 class CodeImprovement:
     def __init__(self, file_path):
@@ -148,7 +150,9 @@ if __name__ == "__main__":
 
     # Create a CodeImprovement object for a file called "code.py"
     # code_improvement = CodeImprovement(input("Enter the file path: "))
-    code_improvement = CodeImprovement("me.py")
+    code_improvement = CodeImprovement(
+        "/Users/bottega/Desktop/auto_coder/new_feature/sum.py"
+    )
 
     # Get the possible improvement categories for the code
     improvement_categories = code_improvement.get_possible_improvement_categories()

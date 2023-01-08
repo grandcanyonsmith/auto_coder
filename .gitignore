@@ -4,3 +4,10 @@ test_env
 ideas
 .env
 __pycache__
+new_feature
+byu_install_homebrew_instructions.txt
+code_search.py
+conversation.jsonl
+.sourcery.yaml
+get_last_ten_messages.py
+summarize.py

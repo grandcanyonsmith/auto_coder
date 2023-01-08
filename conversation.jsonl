@@ -1,18 +1,21 @@
-{"speaker": "Boss", "message": "Good morning, how can I help you?"}
-{"speaker": "Employee", "message": "I need to take a day off tomorrow."}
-{"speaker": "Boss", "message": "That's no problem, just let me know when you'll be back."}
-{"speaker": "Employee", "message": "Thank you, I'll be back the day after tomorrow."}
-{"speaker": "Boss", "message": "Alright, just make sure to catch up on any work you miss while you're gone."}
-{"speaker": "Employee", "message": "Of course, I'll make sure to do that. Is there anything specific I need to do before I leave?"}
-{"speaker": "Boss", "message": "No, everything seems to be in order. Just make sure to let your team know that you'll be away and if there are any pressing issues they can reach out to me."}
-{"speaker": "Employee", "message": "Got it. I'll send out a message to the team now."}
-{"speaker": "Boss", "message": "Great. Is there anything else you need before you take off?"}
-{"speaker": "Employee", "message": "No, that's everything. Thank you for your understanding."}
-{"speaker": "Boss", "message": "Of course. Take care and have a good time."}
-{"speaker": "Employee", "message": "I will, thanks again."}
-{"speaker": "Boss", "message": "You're welcome. Have a safe trip."}
-{"speaker": "Employee", "message": "I will. Goodbye for now."}
-{"speaker": "Boss", "message": "Goodbye, and have a good day."}
-{"speaker": "Employee", "message": "You too, see you when I get back."}
-{"speaker": "Boss", "message": "Sounds good. Have a great time."}
-{"speaker": "Employee", "message": "Thank you, I will. Bye."}
+
+{"message": "I wanted to ask about the timeline for the project", "timestamp": 1598845720, "speaker": "Employee", "type": "Statement"}
+{"message": "The project deadline is Thursday of next week", "timestamp": 1598845740, "speaker": "Boss", "type": "Answer"}
+{"message": "Do you need any help to finish on time?", "timestamp": 1598845760, "speaker": "Boss", "type": "Question"}
+{"message": "No, I think I've got it under control, thank you", "timestamp": 1598845780, "speaker": "Employee", "type": "Statement"}
+{"message": "Let me know if you need anything", "timestamp": 1598845800, "speaker": "Boss", "type": "Statement"}
+{"message": "Will do, thank you", "timestamp": 1598845820, "speaker": "Employee", "type": "Statement"}
+{"message": "No problem", "timestamp": 1598845840, "speaker": "Boss", "type": "Statement"}
+{"message": "So, is there anything else I can help you with?", "timestamp": 1598845860, "speaker": "Boss", "type": "Question"}
+{"message":  "Yes, actually I need to make a react app", "timestamp": 1598845880, "speaker": "Employee", "type": "Statement"}
+{"message": "I'm a bit unfamiliar with that type of technology, do you need help getting started?", "timestamp": 1598845900, "speaker": "Boss", "type": "Question"}
+{"message": "No that's ok, I can figure it out", "timestamp": 1598845920, "speaker": "Employee", "type": "Statement"}
+{"message": "Alright, let me know if you need any help though", "timestamp": 1598845940, "speaker": "Boss", "type": "Statement"}
+{"message": "Will do, thanks again!", "timestamp": 1598845960, "speaker": "Employee", "type": "Statement"}
+{"message": "Also, don't hesitate to ask if you have any other questions about the project", "timestamp": 1598845980, "speaker": "Boss", "type": "Statement"}
+{"message": "That's great, thanks!", "timestamp": 1598846000, "speaker": "Employee", "type": "Statement"}
+{"message": "You're very welcome", "timestamp": 1598846020, "speaker": "Boss", "type": "Statement"}
+{"message": "Is there anything else you wanted to discuss?", "timestamp": 1598846040, "speaker": "Boss", "type": "Question"}
+{"message": "I think that's it", "timestamp": 1598846060, "speaker": "Employee", "type": "Statement"}
+{"message": "Okay, great. Have a nice day!", "timestamp": 1598846080, "speaker": "Boss", "type": "Statement"}
+{"message": "You too, thanks again!", "timestamp": 1598846100, "speaker": "Employee", "type": "Statement"}

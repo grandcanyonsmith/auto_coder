@@ -6,7 +6,6 @@
 5. Implement machine learning algorithms to improve the AI's performance over time.
 6. Implement pattern recognition and prediction capabilities.
 7. Design the AI to work with large datasets and process them quickly.
-8. Create a main.py file to coordinate all the tasks.
 
 <h1>AI that Can Build Itself and Self-Improve</h1>
 
