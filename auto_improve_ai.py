@@ -148,7 +148,7 @@ if __name__ == "__main__":
 
     # Create a CodeImprovement object for a file called "code.py"
     # code_improvement = CodeImprovement(input("Enter the file path: "))
-    code_improvement = CodeImprovement("aws.py")
+    code_improvement = CodeImprovement("me.py")
 
     # Get the possible improvement categories for the code
     improvement_categories = code_improvement.get_possible_improvement_categories()
