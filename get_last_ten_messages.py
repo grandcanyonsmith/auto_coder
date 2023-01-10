@@ -2,7 +2,7 @@
 import json
 
 # Declare a variable to store the file name
-file_name = 'conversation.jsonl'
+file_name = './conversation.jsonl'
 
 # Declare a variable to store the loop limit
 message_limit = 10

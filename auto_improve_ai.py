@@ -11,7 +11,7 @@ import keyboard
 import openai
 from inquirer.themes import GreenPassion
 from user_interface_utils import allow_user_to_select_suggestions
-openai.api_key = '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'
+openai.api_key = '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'
 
 
 class CodeImprovement:
@@ -149,7 +149,7 @@ if __name__ == "__main__":
 
     # Create a CodeImprovement object for a file called "code.py"
     # code_improvement = CodeImprovement(input("Enter the file path: "))
-    code_improvement = CodeImprovement("get_last_ten_messages.py")
+    code_improvement = CodeImprovement("aws_pdf.py")
 
     # Get the possible improvement categories for the code
     improvement_categories = code_improvement.get_possible_improvement_categories()
@@ -167,3 +167,7 @@ if __name__ == "__main__":
 
     # Print the modified code
     print(code_improvement.file_contents)
+
+# TODO:
+# -[ ] Remove unncessary code
+# -[ ] Take away type hints
