@@ -36,8 +36,4 @@ def convert_to_json(filename):
     return json_text
 
 if __name__ == "__main__":
-    import time
-    start = time.time()
     convert_to_json(input("Enter file name: "))
-    end = time.time()
-    print(f"Time taken: {end - start} seconds")
