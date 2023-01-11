@@ -151,9 +151,10 @@ if __name__ == "__main__":
     recognizer.dynamic_energy_adjustment_damping = 0.15
     recognizer.dynamic_energy_adjustment_ratio = 1.5
     recognizer.phrase_threshold = 0.3
-    audio_model = joblib.load(
-        "/Users/canyonsmith/Desktop/sentient_ai/assistent_ai_code/whispering/files/model.pickle"
-    )
+    # audio_model = joblib.load(
+    #     "/Users/canyonsmith/Desktop/sentient_ai/assistent_ai_code/whispering/files/model.pickle"
+    # )
+    audio_model = whisper.load_model("tiny")
     transcribe(
         # Reduced the number of devices used for input
         devices=["Canyon Smith's AirPods Pro #4"],
@@ -163,7 +164,7 @@ if __name__ == "__main__":
         # sample_rate=16000,  # Reduced the sample rate, faster processing but lower quality
         # language="ur",
         task="whisper",
-        model="large-v2",  # Reduced the size of the audio model
+        model="large",  # Reduced the size of the audio model
         english=True,
         condition_on_previous_text=True,
         verbose=False,

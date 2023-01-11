@@ -8,7 +8,7 @@ from collections import deque
 import openai
 
 # openai.api_key = os.environ.get("OPENAI_API_KEY")
-openai.api_key = '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'
+openai.api_key = "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"
 conversation_history_path = "files/text/open_ai_responses.jsonl"
 
 

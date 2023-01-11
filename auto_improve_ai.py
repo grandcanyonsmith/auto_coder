@@ -5,10 +5,15 @@ import contextlib
 import openai
 from user_interface_utils import allow_user_to_select_suggestions
 
+
+openai.api_key = "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"
+
+
 @contextlib.contextmanager
 def read_file(file_path):
     with open(file_path, "r") as file:
         yield file.read()
+        file.close()
 
 
 @contextlib.contextmanager
@@ -32,7 +37,6 @@ class CodeImprovement:
         """
         given a prompt and a temperature value.
         """
-        # restart_sequence = '"""'
         response = openai.Completion.create(
             engine="text-davinci-003",
             prompt=prompt,
@@ -67,7 +71,9 @@ class CodeImprovement:
         \n### Instructions\n"""\n{suggestions}\n"""\n\
         \n### New {self.file_type}\n"""'
         with read_file(self.file_path) as improvements:
-            improvements = self._extract_improvement_suggestions(prompt, 0, 3000, "#END")
+            improvements = self._extract_improvement_suggestions(
+                prompt, 0, 3000, "#END"
+            )
         with write_file(self.file_path, improvements) as file:
             file.close()
         return improvements
