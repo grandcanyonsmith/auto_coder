@@ -5,6 +5,8 @@ import contextlib
 import openai
 from user_interface_utils import allow_user_to_select_suggestions
 
+openai.api_key = "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"
+
 @contextlib.contextmanager
 def read_file(file_path):
     with open(file_path, "r") as file:
