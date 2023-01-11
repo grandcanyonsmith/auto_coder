@@ -5,8 +5,6 @@ import openai
 
 from user_interface_utils import allow_user_to_select_suggestions
 
-openai.api_key = "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"
-
 
 class CodeImprover:
     def __init__(self, filepath):
@@ -89,13 +87,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("filepath")
     args = parser.parse_args()
-
-    # code_improvement = CodeImprover(args.filepath)
-    # possible_improvement_categories = code_improvement.get_possible_improvement_categories()
-    # selected_category = allow_user_to_select_suggestions(possible_improvement_categories)
-    # improvement_actions = code_improvement.get_improvement_actions(selected_category)
-    # selected_improvements = allow_user_to_select_suggestions(improvement_actions)
-    # code_improvement.apply_improvements(selected_improvements, code_improvement._get_file_content())
     code_improvement = CodeImprover(args.filepath)
     possible_improvement_categories = (
         code_improvement.get_possible_improvement_categories()
@@ -114,3 +105,11 @@ if __name__ == "__main__":
     code_improvement.apply_improvements(
         selected_improvements, code_improvement._get_file_content()
     )
+
+
+### TODO
+# - Set engine as a parameter
+# - Add more file types
+# - Fix the categories. Right now it just dumps the categories. It should be a list of categories with their respective actions based on the file type and contents
+# - Refactor selected_category
+# - Fix the prompts to match the prompts in the older version of auto_improve_code. The prompts should be formatted correctly.
