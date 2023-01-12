@@ -1,5 +1,3 @@
-
-
 import argparse
 import contextlib
 import logging
@@ -124,41 +122,6 @@ class CodeImprover:
                 selected_suggestions.append(suggestion)
         # Return the selected suggestions
         return selected_suggestions
-    
-    def _apply_code_refactoring(self, code):
-        """Apply code refactoring to the code"""
-        instruction = f"Code refactoring:\n{code}"
-        return self._get_suggestions_for_improvement(instruction)
-    
-    def _apply_syntax_refactoring(self, code):
-        """Apply syntax refactoring to the code"""
-        instruction = f"Syntax refactoring:\n{code}"
-        return self._get_suggestions_for_improvement(instruction)
-    
-    def _apply_algorithmic_optimization(self, code):
-        """Apply algorithmic optimization to the code"""
-        instruction = f"Algorithmic optimization:\n{code}"
-        return self._get_suggestions_for_improvement(instruction)
-    
-    def _apply_standardization_of_code_style(self, code):
-        """Apply standardization of code style to the code"""
-        instruction = f"Standardization of code style:\n{code}"
-        return self._get_suggestions_for_improvement(instruction)
-    
-    def _apply_use_of_optimized_library_functions(self, code):
-        """Apply use of optimized library functions to the code"""
-        instruction = f"Use of optimized library functions:\n{code}"
-        return self._get_suggestions_for_improvement(instruction)
-    
-    def _apply_logging_of_code_performance_metrics(self, code):
-        """Apply logging of code performance metrics to the code"""
-        instruction = f"Logging of code performance metrics:\n{code}"
-        return self._get_suggestions_for_improvement(instruction)
-    
-    def _apply_automated_testing_of_code(self, code):
-        """Apply automated testing of code to the code"""
-        instruction = f"Automated testing of code:\n{code}"
-        return self._get_suggestions_for_improvement(instruction)
     
     @contextlib.contextmanager
     def _write_file(self, filepath, data):
