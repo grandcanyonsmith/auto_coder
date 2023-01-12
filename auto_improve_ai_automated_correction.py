@@ -5,6 +5,7 @@ import openai
 
 from user_interface_utils import allow_user_to_select_suggestions
 
+openai.api_key = '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'
 
 class CodeImprover:
     def __init__(self, filepath):
@@ -46,7 +47,7 @@ class CodeImprover:
             # engine="text-davinci-003",
             prompt=prompt,
             temperature=0.7,
-            max_tokens=2000,
+            max_tokens=3000,
             top_p=1,
             frequency_penalty=0,
             presence_penalty=0,
@@ -84,27 +85,28 @@ class CodeImprover:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("filepath")
-    args = parser.parse_args()
-    code_improvement = CodeImprover(args.filepath)
-    possible_improvement_categories = (
-        code_improvement.get_possible_improvement_categories()
-    )
-    print(possible_improvement_categories)
-    selected_category = code_improvement.select_suggestions(
-        possible_improvement_categories, "Code Improvement Categories"
-    )
-    print(selected_category)
-    improvement_actions = code_improvement.get_improvement_actions(selected_category)
-    print(improvement_actions)
-    selected_improvements = code_improvement.select_suggestions(
-        improvement_actions, selected_category
-    )
-    print(selected_improvements)
-    code_improvement.apply_improvements(
-        selected_improvements, code_improvement._get_file_content()
-    )
+    while True:
+        parser = argparse.ArgumentParser()
+        parser.add_argument("filepath")
+        args = parser.parse_args()
+        code_improvement = CodeImprover(args.filepath)
+        possible_improvement_categories = (
+            code_improvement.get_possible_improvement_categories()
+        )
+        print(possible_improvement_categories)
+        selected_category = code_improvement.select_suggestions(
+            possible_improvement_categories, "Code Improvement Categories"
+        )
+        print(selected_category)
+        improvement_actions = code_improvement.get_improvement_actions(selected_category)
+        print(improvement_actions)
+        selected_improvements = code_improvement.select_suggestions(
+            improvement_actions, selected_category
+        )
+        print(selected_improvements)
+        code_improvement.apply_improvements(
+            selected_improvements, code_improvement._get_file_content()
+        )
 
 
 ### TODO
