@@ -5,8 +5,6 @@ import openai
 
 from user_interface_utils import allow_user_to_select_suggestions
 
-openai.api_key = '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'
-
 class CodeImprover:
     def __init__(self, filepath):
         self.filepath = filepath
@@ -29,8 +27,8 @@ class CodeImprover:
 
     def _get_file_type(self):
         """Gets the file type of the code file"""
-        if self.filepath.endswith(".py"):
-            return "python"
+        if self.filepath.endswith(".txt"):
+            return "Flash fiction story about heartbreak"
         # add more file types as necessary
         else:
             raise ValueError(f"Unsupported file type: {self.filepath}")
@@ -43,8 +41,8 @@ class CodeImprover:
     def _get_suggestions_for_improvement(self, prompt):
         """API: Get the suggestions for code improvement from the OpenAI API"""
         response = openai.Completion.create(
-            engine="code-davinci-002",
-            # engine="text-davinci-003",
+            # engine="code-davinci-002",
+            engine="text-davinci-003",
             prompt=prompt,
             temperature=0.7,
             max_tokens=3000,
@@ -78,6 +76,10 @@ class CodeImprover:
     def apply_improvements(self, suggestions, old_code):
         """Apply the selected suggestions to the code"""
         instruction = f"#### Implement the following suggestions in {self.file_type} code file with contents:\n\n### Old Code\n{old_code}\n\n\n### Suggestions{suggestions}\n\n\n### New Code"
+        instruction =f'##### Fix bugs in the below {self.file_type} according to the instructions\n \
+        \n### Buggy {self.file_type}\n"""\n{old_code}\n#END\n"""\n\
+        \n### Instructions\n"""\n{suggestions}\n"""\n\
+        \n### Fixed {self.file_type}\n"""',
         print("apply improvement instruction", instruction)
         improved_code = self._get_suggestions_for_improvement(instruction)
         with self._write_file(self.filepath, improved_code) as file:
@@ -107,11 +109,3 @@ if __name__ == "__main__":
         code_improvement.apply_improvements(
             selected_improvements, code_improvement._get_file_content()
         )
-
-
-### TODO
-# - Set engine as a parameter
-# - Add more file types
-# - Fix the categories. Right now it just dumps the categories. It should be a list of categories with their respective actions based on the file type and contents
-# - Refactor selected_category
-# - Fix the prompts to match the prompts in the older version of auto_improve_code. The prompts should be formatted correctly.

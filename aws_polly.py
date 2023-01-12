@@ -1,114 +1,104 @@
+
 import logging
-import os
-import random
 
-import playsound
-from boto3 import client
+# Create a boolean variable to store the result
+are_anagrams = False
 
-# Region name and audio format
-region_name = "us-west-2"  # AWS region name
-audio_format = "mp3"  # Audio format
-voices = ["Joanna"]  # List of available voices
-
-# Logging configuration
-logging.basicConfig(
-    filename="files/logs/aws_polly.log", level=logging.INFO
-)  # Configure logging
-
-
-def synthesize_speech(
-    input_message,
-    voice_id,
-    output_file_name,
-    region_name=region_name,
-    audio_format=audio_format,
-    voices=voices,
-    text_type="text",
-    language_code="en-US",
-):
+# Define a function to compare two words
+def is_anagram(word_1, word_2):
     """
-    This function uses AWS Polly to convert text to speech.
+    Checks if two words are anagrams of each other.
+    
+    Parameters:
+    word_1 (str): The first word.
+    word_2 (str): The second word.
+    
+    Returns:
+    bool: True if the words are anagrams, False otherwise.
     """
+    # Error Handling: Add more try/except blocks to handle unexpected user inputs.
     try:
-        # Create a Polly client
-        polly_client = client("polly", region_name=region_name)  # Create a Polly client
-
-        # Log an error if the requested voice is not available in the selected region
-        if voice_id not in voices:
-            logging.error(
-                f"Requested voice {voice_id} is not available in the selected region {region_name}"
-            )
-            return
-
-        # Delete the output file if it already exists
-        if os.path.exists(output_file_name):
-            logging.info(f"Output file {output_file_name} already exists. Deleting...")
-            os.remove(output_file_name)
-
-        # Synthesize the speech
-        try:
-            response = polly_client.synthesize_speech(
-                Text=input_message,  # Text to be converted to speech
-                OutputFormat=audio_format,  # Audio format
-                VoiceId=voice_id,  # Voice ID
-                LanguageCode=language_code,  # Language code
-                TextType=text_type,  # Text type
-                Engine="neural",  # Engine type
-                SampleRate="22050",  # Sample rate
-            )
-
-            # Get the audio stream
-            if audio_stream := response.get("AudioStream"):
-                with open(output_file_name, "wb") as file:
-                    data = audio_stream.read()
-                    file.write(data)
-                audio_stream.close()
-                return output_file_name
-        except Exception as e:
-            logging.error(e)
-    except Exception as e:
-        logging.error(e)
+        # Convert both words to sets
+        word_1_set = set(word_1)
+        word_2_set = set(word_2)
+    except TypeError:
+        logging.error("Please enter valid strings.")
+        raise TypeError("Please enter valid strings.")
+    
+    # Compare the two sets
+    is_anagram = word_1_set == word_2_set
+    logging.debug(f"The comparison of '{word_1}' and '{word_2}' returned {is_anagram}")
+    return is_anagram
 
 
-def delete_audio_file(output_file_name):
+# Define a function to get user inputs and validate them
+def get_user_inputs():
     """
-    This function deletes an audio file.
+    Request two user inputs (strings).
+    Validates the user inputs are strings.
+    Sanitize the user inputs to prevent injection attacks.
+    Remove all white spaces and special characters from the inputs.
+    Convert both inputs to lowercase for consistency.
+    Check if either input is empty.
+    
+    Returns:
+    (str, str): The sanitized user inputs.
     """
+    # Request two user inputs (strings)
     try:
-        if os.path.exists(output_file_name):
-            os.remove(output_file_name)
-            logging.info(f"Deleted audio file {output_file_name}")
-    except Exception as e:
-        logging.error(e)
+        word_1 = input("Please type the first word: ")
+        word_2 = input("Please type the second word: ")
+    except ValueError:
+        logging.error("Please enter valid strings.")
+        raise ValueError("Please enter valid strings.")
+    
+    # Input Validation: Add additional checks to ensure the user inputs are of the correct type and format.
+    # Checks that the user inputs are strings
+    if not (isinstance(word_1, str) and isinstance(word_2, str)):
+        logging.error("Please enter valid strings.")
+        raise ValueError("Please enter valid strings.")
+    
+    # Security: Add additional sanitization to prevent injection attacks.
+    word_1 = word_1.strip()
+    word_2 = word_2.strip()
+
+    # Validate user input types
+    if not (isinstance(word_1, str) and isinstance(word_2, str)):
+        logging.error("Please enter valid strings.")
+        raise ValueError("Please enter valid strings.")
+    
+    # Remove all white spaces and special characters from both inputs using a regular expression
+    import re  # Refactoring: Refactor the code to make it more efficient and easier to maintain.
+    word_1 = re.sub(r'[^a-zA-Z0-9]+', '', word_1)
+    word_2 = re.sub(r'[^a-zA-Z0-9]+', '', word_2)
+    
+    # Check if either input is empty
+    if not word_1 or not word_2:
+        logging.error("Please enter valid strings.")
+        raise ValueError("Please enter valid strings.")
+    
+    # Convert both inputs to lowercase for consistency
+    word_1 = word_1.lower()
+    word_2 = word_2.lower()
+    
+    return word_1, word_2
 
 
-def main(text_to_speech):
-    try:
-        # Log an error if the text to speech variable is empty
-        if not text_to_speech:
-            logging.error("Text to speech variable is empty")
-            return
+# Get user inputs
+try:
+    word_1, word_2 = get_user_inputs()
+    logging.debug(f"The user inputs are '{word_1}' and '{word_2}'")
+except ValueError as e:
+    print(e)
+else:
+    # Call the function to compare the two words
+    are_anagrams = is_anagram(word_1, word_2)
 
-        # Set the output file name
-        output_file_name = (
-            f"files/audio/output_aws_polly.{audio_format}"  # Set the output file name
-        )
+    # Print the result
+    if are_anagrams:
+        print("These two words are anagrams of each other")
+    else:
+        print("These two words are not anagrams of each other")
 
-        # Choose a random voice
-        voice_id = voices[random.randint(0, len(voices) - 1)]  # Choose a random voice
-        logging.info(f"Chosen voice: {voice_id}")
-
-        # Synthesize the speech
-        try:
-            synthesize_speech(text_to_speech, voice_id, output_file_name)
-
-            # Play the audio file
-            with playsound.playsound(output_file_name) as sound:
-                pass
-        except Exception as e:
-            logging.error(e)
-
-        # Delete the audio file
-        delete_audio_file(output_file_name)  # Delete the audio file
-    except Exception as e:
-        logging.error(e)
+#END
+"""

@@ -1,4 +1,5 @@
 
+
 import logging
 import os
 from glob import glob
@@ -129,7 +130,7 @@ def search_functions(
                 )
                 logging.info("\n".join(r[1].code.split("\n")[:num_lines]))
                 logging.info("-" * 70)
-                return res
+        return res
     except TypeError:
         # Log an error message if the argument type is invalid
         logging.error("Invalid argument type")
@@ -173,7 +174,7 @@ def main():
     # Print the total number of functions with embeddings
     print("Total number of functions with embeddings:", len(df))
     # Set the code query
-    code_query = "github"
+    code_query = "download html"
     # Search for functions similar to the code query
     end = time.time()
     print("Time taken:", end - start)
@@ -186,3 +187,167 @@ if __name__ == "__main__":
     The main method searches for functions similar to the given code query.
     """
     main()
+#END
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+##### Fix bugs in the below python according to the instructions
+         
+### Buggy python
+"""
+
+import logging
+import time
+
+# Logging and error handling
+def log_error(error_message: str):
+    logging.error(error_message)
+
+def main():
+    # Performance optimization
+    start = time.time()
+    # Get the user's home directory
+    root_dir = os.path.expanduser("~")
+    logging.info(f"Root directory: {root_dir}")
+
+    # Set the root directory for the code
+    code_root = "."
+    logging.info(f"Code root: {code_root}")
+
+    # Set the code query
+    code_query = "download html"
+    end = time.time()
+    print("Time taken:", end - start)
+
+
+# Logging and error handling
+if __name__ == "__main__":
+    """
+    The main method searches for functions similar to the given code query.
+    """
+    main()
+#END
+"""
+        
+### Instructions
+"""
+
+"""
+        
+### Fixed python
+"""
+
+import logging
+import time
+
+# Logging and error handling
+def log_error(error_message: str):
+    logging.error(error_message)
+
+def main():
+    # Performance optimization
+    start = time.time()
+    # Get the user's home directory
+    root_dir = os.path.expanduser("~")
+    logging.info(f"Root directory: {root_dir}")
+
+    # Set the root directory for the code
+    code_root = "."
+    logging.info(f"Code root: {code_root}")
+
+    # Set the code query
+    code_query = "download html"
+    end = time.time()
+    print("Time taken:", end - start)
+
+
+# Logging and error handling
+if __name__ == "__main__":
+    """
+    The main method searches for functions similar to the given code query.
+    """
+    main()
+#END
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+##### Fix bugs in the below python according to the instructions
+         
+### Buggy python
+"""
+
+import logging
+import os
+from glob import glob
+import unittest
+import time
+
+import openai
+import pandas as pd
+from openai.embeddings_utils import cosine_similarity, get_embedding
+
+openai.api_key = "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"
+
+logging.basicConfig(level=logging.INFO)
+
+def get_function_name(code: str) -> str:
+    """
+    Extract the function name from a line beginning with "def ".
+    """
+    try:
+        # Check if the code starts with "def"
+        assert code.startswith("def ")
+        # Return the function name
+        return code[len("def "): code.index("(")]
+    except AssertionError:
+        # Log an error message if the code does not start with "def"
+        logging.error("Function does not start with 'def'")
+        raise
+
+def get_until_no_space(all_lines: list, start_index: int) -> str:
+    """
+    Get all lines until a line outside the function definition is found.
+    """
+    ret = [all_lines[start_index]]
+    # Set a limit of 10000 lines to avoid infinite loops
+    for i in range(start_index + 1, start_index + 10000):
+        # Check if the index is within the array length
+        if i < len(all_lines):
+            # Check if the line is empty
+            if not all_lines[i].strip():
+                # Add the line to the return value
+                ret.append(all_lines[i])
+            else:
+                # Break out of the loop if a non-empty line is found
+                break
+    # Return all lines as a single string
+    return "\n".join(ret)
+
+def get_functions(filepath: str) -> list:
+    """
+    Get all functions in a Python file.
+    """
+    try:
+        # Open the file
+        with open(filepath) as f:
+            # Read the content, replacing any carriage returns with new lines
+            whole_code = f.read().replace("\r", "\n")
+        # Split the content into lines
+        all_lines = whole_code.split("\n")
+        functions = []
+        # Loop through each line
+        for i, line in enumerate(all_lines):
+            # Check if the line starts with "def"
+            if line.startswith("def "):
+                # Get all the lines until the end of the function definition
+                code = get_until_no_space(all_lines, i)

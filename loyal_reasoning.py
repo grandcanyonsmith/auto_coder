@@ -389,7 +389,7 @@ import openai
 import termcolor
 
 # openai.api_key = os.environ.get("OPENAI_API_KEY")
-openai.api_key = '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'
+openai.api_key = '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'
 
 def get_s3_client() -> boto3.client:
     """

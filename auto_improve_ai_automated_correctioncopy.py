@@ -2,15 +2,16 @@ import argparse
 import contextlib
 import logging
 import os
-import time
 import random
+import time
 
 import openai
 
 # Error Handling
 try:
-    openai.api_key = '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'
+    openai.api_key = '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'
 except Exception as e:
+    openai.api_key = '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'
     logging.exception('Error: invalid OpenAI API key.')
     exit()
 
@@ -86,6 +87,7 @@ class CodeImprover:
         return self._get_suggestions_for_improvement(instruction)
     
     def _select_suggestions(self, category):
+    
         """Select suggestions from the list of suggestions for the given category of code improvement"""
         suggestions = category.split(" ")
         self.selected_suggestions = self.allow_user_to_select_suggestions(suggestions)
