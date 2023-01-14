@@ -16,8 +16,7 @@ import openai
 import termcolor
 
 # openai.api_key = os.environ.get("OPENAI_API_KEY")
-openai.api_key = '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'
-
+openai.api_key = ''
 
 
 def get_code_from_file(file_path: str) -> str:

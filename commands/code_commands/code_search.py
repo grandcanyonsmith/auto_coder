@@ -1,5 +1,3 @@
-
-
 import logging
 import os
 from glob import glob
@@ -10,7 +8,7 @@ import openai
 import pandas as pd
 from openai.embeddings_utils import cosine_similarity, get_embedding
 
-openai.api_key = "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"
+openai.api_key = ''
 
 logging.basicConfig(level=logging.INFO)
 
@@ -296,7 +294,7 @@ import openai
 import pandas as pd
 from openai.embeddings_utils import cosine_similarity, get_embedding
 
-openai.api_key = "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"
+openai.api_key = ''
 
 logging.basicConfig(level=logging.INFO)
 

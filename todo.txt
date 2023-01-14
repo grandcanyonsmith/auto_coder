@@ -1,0 +1,4 @@
+### TODO
+
+# 1. Better way for storing variables (AWS secrets manager, or github secrets)
+# 2. Add new functionalities

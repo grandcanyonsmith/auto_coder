@@ -13,8 +13,7 @@
 # import openai
 # import termcolor
 
-# openai.api_key = "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"
-
+openai.api_key = ''
 
 # def get_s3_client() -> boto3.client:
 #     """
@@ -389,8 +388,7 @@ import openai
 import termcolor
 
 # openai.api_key = os.environ.get("OPENAI_API_KEY")
-openai.api_key = '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'
-
+openai.api_key = ''
 def get_s3_client() -> boto3.client:
     """
     Gets the s3 client.

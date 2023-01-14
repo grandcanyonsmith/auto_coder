@@ -5,6 +5,8 @@ import openai
 
 from user_interface_utils import allow_user_to_select_suggestions
 
+openai.api_key = ''
+
 class CodeImprover:
     def __init__(self, filepath):
         self.filepath = filepath
@@ -28,7 +30,9 @@ class CodeImprover:
     def _get_file_type(self):
         """Gets the file type of the code file"""
         if self.filepath.endswith(".txt"):
-            return "Flash fiction story about heartbreak"
+            return "Email to Donna about the $11,000 dollars that she owes me for work done for Hearts Connect"
+        elif self.filepath.endswith(".py"):
+            return "python script to create a permanent open link to share the url for each .mp4 in s3 bucket md-testimonials"
         # add more file types as necessary
         else:
             raise ValueError(f"Unsupported file type: {self.filepath}")
@@ -60,7 +64,7 @@ class CodeImprover:
 
     def get_improvement_actions(self, improvement_category):
         """Gets the specific actions for the selected category of code improvement"""
-        instruction = f"List specific things that need to be done for '{improvement_category}' improvement category for {self.file_type} code file with contents:\n{self._get_file_content()}"
+        instruction = f"List specific things that need to be done for '{improvement_category}' improvement category for {self.file_type} file with contents:\n{self._get_file_content()}"
         print("improve action instruction", instruction)
         return self._get_suggestions_for_improvement(instruction)
 
@@ -75,7 +79,7 @@ class CodeImprover:
 
     def apply_improvements(self, suggestions, old_code):
         """Apply the selected suggestions to the code"""
-        instruction = f"#### Implement the following suggestions in {self.file_type} code file with contents:\n\n### Old Code\n{old_code}\n\n\n### Suggestions{suggestions}\n\n\n### New Code"
+        instruction = f"#### Implement the following suggestions in {self.file_type} file with contents:\n\n### Old {self.file_type}\n{old_code}\n\n\n### Suggestions{suggestions}\n\n\n### New {self.file_type}"
         instruction =f'##### Fix bugs in the below {self.file_type} according to the instructions\n \
         \n### Buggy {self.file_type}\n"""\n{old_code}\n#END\n"""\n\
         \n### Instructions\n"""\n{suggestions}\n"""\n\
@@ -96,16 +100,17 @@ if __name__ == "__main__":
             code_improvement.get_possible_improvement_categories()
         )
         print(possible_improvement_categories)
-        selected_category = code_improvement.select_suggestions(
-            possible_improvement_categories, "Code Improvement Categories"
-        )
-        print(selected_category)
-        improvement_actions = code_improvement.get_improvement_actions(selected_category)
-        print(improvement_actions)
-        selected_improvements = code_improvement.select_suggestions(
-            improvement_actions, selected_category
-        )
-        print(selected_improvements)
+        
+        # selected_category = code_improvement.select_suggestions(
+        #     possible_improvement_categories, "Code Improvement Categories"
+        # )
+        # print(selected_category)
+        # improvement_actions = code_improvement.get_improvement_actions(selected_category)
+        # print(improvement_actions)
+        # selected_improvements = code_improvement.select_suggestions(
+        #     improvement_actions, selected_category
+        # )
+        # print(selected_improvements)
         code_improvement.apply_improvements(
-            selected_improvements, code_improvement._get_file_content()
+            possible_improvement_categories, code_improvement._get_file_content()
         )

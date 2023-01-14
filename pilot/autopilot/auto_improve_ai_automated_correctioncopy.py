@@ -9,9 +9,9 @@ import openai
 
 # Error Handling
 try:
-    openai.api_key = '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'
+    openai.api_key = ''
 except Exception as e:
-    openai.api_key = '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'
+    openai.api_key = ''
     logging.exception('Error: invalid OpenAI API key.')
     exit()
 
@@ -169,7 +169,7 @@ import openai
 
 # Error Handling
 try:
-    openai.api_key = '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'
+openai.api_key = ''
 except Exception as e:
     logging.exception('Error: invalid OpenAI API key.')
     exit()
