@@ -1,129 +1,130 @@
-import aiohttp
-import aiofiles
-import argparse
-import asyncio
-import logging
-import os
-import unittest
+# import argparse
+# import asyncio
+# import logging
+# import os
+# import unittest
 
-import openai
+# import aiofiles
+# import aiohttp
+# import openai
 
-def get_openai_api_key() -> str:
-    """Returns the OpenAI API key"""
-    return os.getenv("OPENAI_API_KEY")
 
-class CodeImprover:
-    def __init__(self, file_path: str):
-        self.file_path: str = file_path
-        self.file_contents: str = self._read_file('weather.txt')
-        self.file_types: dict = {
-            "py": "python script to run poetry install",
-            "js": "javascript script",
-            "rb": "ruby script",
-            "php": "php script",
-            "txt": "Instructions List on how to build a lego house",
-            "c++": "c++ script to find the area of a triangle",
-            # "txt": "free verse poem",
+# def get_openai_api_key() -> str:
+#     """Returns the OpenAI API key"""
+#     return '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'
+#     # return os.getenv("OPENAI_API_KEY")
+
+# class CodeImprover:
+#     def __init__(self, file_path: str):
+#         self.file_path: str = file_path
+#         self.file_contents: str = self._read_file('budget.txt')
+#         self.file_types: dict = {
+#             "py": "python script that reads the contents of a python file that is too long and splits it into two",
+#             "js": "javascript script",
+#             "rb": "ruby script",
+#             "php": "php script",
+#             "feature": "Gherkins feature that reads the contents of a python file that is too long and splits it into two files.",
+#             "txt": "Marketing Budget Table",
             
-        }
-        self.file_type: str = self.get_file_type()
-        self.selected_suggestions: str = None
-        self.engine: str = os.getenv('OPENAI_ENGINE')
-        self.logger = logging.getLogger(__name__)
+#         }
+#         self.file_type: str = self.get_file_type()
+#         self.selected_suggestions: str = None
+#         self.engine: str = os.getenv('OPENAI_ENGINE')
+#         self.logger = logging.getLogger(__name__)
 
-    async def _read_file(self, file_path: str) -> str:
-        """Reads a file and returns its contents"""
-        try:
-            async with aiofiles.open(file_path, "r", encoding="utf-8") as file:
-                content: str = await file.read()
-        except Exception as e:
-            self.logger.error(f"Error reading file: {e}")
-            raise e
-        return content
+#     async def _read_file(self, file_path: str) -> str:
+#         """Reads a file and returns its contents"""
+#         try:
+#             async with aiofiles.open(file_path, "r", encoding="utf-8") as file:
+#                 content: str = await file.read()
+#         except Exception as e:
+#             self.logger.error(f"Error reading file: {e}")
+#             raise e
+#         return content
 
-    async def _write_file(self, file_path: str, content: str):
-        """Writes content to a file"""
-        try:
-            async with aiofiles.open(file_path, "w", encoding="utf-8") as file:
-                await file.write(content)
-        except Exception as e:
-            self.logger.error(f"Error writing file: {e}")
-            raise e
+#     async def _write_file(self, file_path: str, content: str):
+#         """Writes content to a file"""
+#         try:
+#             async with aiofiles.open(file_path, "w", encoding="utf-8") as file:
+#                 await file.write(content)
+#         except Exception as e:
+#             self.logger.error(f"Error writing file: {e}")
+#             raise e
 
-    def get_file_type(self) -> str:
-        """Gets the file type of the code file"""
-        return self.file_types.get(self.file_path.split(".")[-1], "unknown")
+#     def get_file_type(self) -> str:
+#         """Gets the file type of the code file"""
+#         return self.file_types.get(self.file_path.split(".")[-1], "unknown")
     
-    async def _get_file_content(self) -> str:
-        """Gets the content of the code file"""
-        return await self._read_file(os.path.basename(self.file_path))
+#     async def _get_file_content(self) -> str:
+#         """Gets the content of the code file"""
+#         return await self._read_file(os.path.basename(self.file_path))
 
-    async def _get_suggestions(self, prompt: str, engine: str='text-davinci-003', temperature: float=0.7, max_tokens: int=3000, top_p: float=1, frequency_penalty: float=0, presence_penalty: float=0) -> str:
-        """Makes an API call to the OpenAI API and returns the suggestions for improvement"""
-        try:
-            openai.api_key = get_openai_api_key()
-            async with aiohttp.ClientSession() as session:
-                async with session.post(f'https://api.openai.com/v1/engines/{engine}/completions',headers={'Authorization': f'Bearer {openai.api_key}'},
-                                        json={'prompt': prompt,
-                                              'temperature': temperature,
-                                              'max_tokens': max_tokens,
-                                              'top_p': top_p,
-                                              'frequency_penalty': frequency_penalty,
-                                              'presence_penalty': presence_penalty,
-                                              'stop': ['\n\n### Suggestions', '\n\n### New']}) as resp:
-                    response = await resp.json()
-                    # self.logger.info("Response from OpenAI API: %s", response)
-                    # response = openai.Completion.create(engine=engine, prompt=prompt, temperature=temperature, max_tokens=max_tokens, top_p=top_p, frequency_penalty=frequency_penalty, presence_penalty=presence_penalty, stop=['\n\n### Suggestions', '\n\n### New'])
-                    return response['choices'][0]['text']
-                    # return response.choices[0].text
-        except Exception as e:
-            self.logger.error(f"Error getting suggestions from OpenAI API: {e}")
-            raise e
+#     async def _get_suggestions(self, prompt: str, engine: str='text-davinci-003', temperature: float=0.7, max_tokens: int=2000, top_p: float=1, frequency_penalty: float=0, presence_penalty: float=0) -> str:
+#         """Makes an API call to the OpenAI API and returns the suggestions for improvement"""
+#         try:
+#             openai.api_key = get_openai_api_key()
+#             async with aiohttp.ClientSession() as session:
+#                 async with session.post(f'https://api.openai.com/v1/engines/{engine}/completions',headers={'Authorization': f'Bearer {openai.api_key}'},
+#                                         json={'prompt': prompt,
+#                                               'temperature': temperature,
+#                                               'max_tokens': max_tokens,
+#                                               'top_p': top_p,
+#                                               'frequency_penalty': frequency_penalty,
+#                                               'presence_penalty': presence_penalty,
+#                                               'stop': ['\n\n### Suggestions', '\n\n### New']}) as resp:
+#                     response = await resp.json()
+#                     # self.logger.info("Response from OpenAI API: %s", response)
+#                     # response = openai.Completion.create(engine=engine, prompt=prompt, temperature=temperature, max_tokens=max_tokens, top_p=top_p, frequency_penalty=frequency_penalty, presence_penalty=presence_penalty, stop=['\n\n### Suggestions', '\n\n### New'])
+#                     return response['choices'][0]['text']
+#                     # return response.choices[0].text
+#         except Exception as e:
+#             self.logger.error(f"Error getting suggestions from OpenAI API: {e}")
+#             raise e
 
-    async def get_possible_improvement_categories(self) -> str:
-        """Gets the possible categories for improvement based on file type and contents"""
-        instruction = f"#### List how to improve this {self.file_type}\n\n### Old {self.file_type}\n{await self._get_file_content()}\n\n\nHow could I improve this {self.file_type}?\n"
-        return await self._get_suggestions(instruction, self.engine)
+#     async def get_possible_improvement_categories(self) -> str:
+#         """Gets the possible categories for improvement based on file type and contents"""
+#         instruction = f"#### List how to improve this {self.file_type}\n\n### Old {self.file_type}\n{await self._get_file_content()}\n\n\nHow could I improve this {self.file_type}?\n"
+#         return await self._get_suggestions(instruction, self.engine)
 
-    async def apply_improvements(self, suggestions: str, old_code: str) -> str:
-        """Apply the selected suggestions to the code"""
-        instruction = f'''#### Improve the following {self.file_type} using the instructions below\n\n### Old {self.file_type}\n"""\n{old_code}\n"""\n\n### Suggestions\n"""\n{suggestions}\n"""\n\n### New {self.file_type}\n"""\n'''
-        self.logger.info("apply improvement instruction: %s", instruction)
-        try:
-            improved_code = await self._get_suggestions(instruction, engine='text-davinci-003')
-            # improved_code = await self._get_suggestions(instruction, engine='code-davinci-002')
-            await self._write_file(self.file_path, improved_code)
-            return improved_code
-        except Exception as e:
-            self.logger.error(f"Error applying suggestions: {e}")
-            raise e
+#     async def apply_improvements(self, suggestions: str, old_code: str) -> str:
+#         """Apply the selected suggestions to the code"""
+#         instruction = f'''#### Improve the following {self.file_type} using the instructions below\n\n### Old {self.file_type}\n"""\n{old_code}\n"""\n\n### Suggestions\n"""\n{suggestions}\n"""\n\n### New {self.file_type}\n"""\n'''
+#         self.logger.info("apply improvement instruction: %s", instruction)
+#         try:
+#             improved_code = await self._get_suggestions(instruction, engine='text-davinci-003')
+#             # improved_code = await self._get_suggestions(instruction, engine='code-davinci-002')
+#             await self._write_file(self.file_path, improved_code)
+#             return improved_code
+#         except Exception as e:
+#             self.logger.error(f"Error applying suggestions: {e}")
+#             raise e
 
-    async def main(self):
-        logging.basicConfig(level=logging.INFO)
-        args = parse_args()
-        if args.verbose:
-            logging.basicConfig(level=logging.DEBUG)
-        self.engine = args.engine
-        possible_improvement_categories = await self.get_possible_improvement_categories()
-        await self.apply_improvements(
-            possible_improvement_categories, await self._get_file_content()
-        )
+#     async def main(self):
+#         logging.basicConfig(level=logging.INFO)
+#         args = parse_args()
+#         if args.verbose:
+#             logging.basicConfig(level=logging.DEBUG)
+#         self.engine = args.engine
+#         possible_improvement_categories = await self.get_possible_improvement_categories()
+#         await self.apply_improvements(
+#             possible_improvement_categories, await self._get_file_content()
+#         )
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(prog="code_improvement")
-    parser.add_argument("file_path")
-    parser.add_argument("--engine", default='text-davinci-003')
-    parser.add_argument("--verbose", action="store_true")
+# def parse_args() -> argparse.Namespace:
+#     parser = argparse.ArgumentParser(prog="code_improvement")
+#     parser.add_argument("file_path")
+#     parser.add_argument("--engine", default='text-davinci-003')
+#     parser.add_argument("--verbose", action="store_true")
 
-    return parser.parse_args()
+#     return parser.parse_args()
 
-async def main() -> None:
-    code_improvement = CodeImprover(parse_args().file_path)
-    await code_improvement.main()
+# async def main() -> None:
+#     code_improvement = CodeImprover(parse_args().file_path)
+#     await code_improvement.main()
 
-if __name__ == "__main__":
-    while True:
-        asyncio.run(main())
+# if __name__ == "__main__":
+#     while True:
+#         asyncio.run(main())
 
 
 
@@ -446,3 +447,124 @@ if __name__ == "__main__":
 
             
 # ''''
+
+
+
+# file_handler.py
+
+
+import argparse
+import asyncio
+import logging
+import os
+import unittest
+
+import aiofiles
+import aiohttp
+import openai
+
+
+async def get_openai_api_key() -> str:
+    """Returns the OpenAI API key"""
+    return os.getenv("OPENAI_API_KEY")
+
+
+class FileHandler:
+    def __init__(self, file_path: str):
+        self.file_path = file_path
+        self.logger = logging.getLogger(__name__)
+
+
+    async def read_file(self) -> str:
+        """Reads a file and returns its contents"""
+        try:
+            async with aiofiles.open(self.file_path, "r", encoding="utf-8") as file:
+                content = await file.read()
+        except Exception as e:
+            self.logger.error(f"Error reading file: {e}")
+            raise e
+        return content
+
+    async def write_file(self, content: str):
+        """Writes content to a file"""
+        try:
+            async with aiofiles.open(self.file_path, "w", encoding="utf-8") as file:
+                await file.write(content)
+        except Exception as e:
+            self.logger.error(f"Error writing file: {e}")
+            raise e
+
+# file_type_handler.py
+class FileTypeHandler:
+    def __init__(self):
+        self.file_types = {
+            "py": "python script",
+            "js": "javascript script",
+            "rb": "ruby script",
+            "php": "php script",
+            "feature": "Gherkins feature",
+            "txt": "Poem about being late",
+        }
+        self.logger = logging.getLogger(__name__)
+
+
+    def get_file_type(self, file_path: str) -> str:
+        """Gets the file type of the code file"""
+        file_extension = file_path.split(".")[-1]
+        return self.file_types.get(file_extension, "unknown")
+
+# suggestion_handler.py
+class SuggestionHandler:
+    def __init__(self, engine: str = os.getenv('OPENAI_ENGINE')):
+        self.engine = engine
+        self.logger = logging.getLogger(__name__)
+
+    async def get_suggestions(self, prompt: str, temperature: float = 0.7, max_tokens: int = 2000, top_p: float = 1, frequency_penalty: float = 0, presence_penalty: float = 0) -> str:
+        """Makes an API call to the OpenAI API and returns the suggestions for improvement"""
+        try:
+            openai.api_key = await get_openai_api_key()
+            async with aiohttp.ClientSession() as session:
+                async with session.post(f'https://api.openai.com/v1/engines/{self.engine}/completions',headers={'Authorization': f'Bearer {openai.api_key}'},
+                                        json={'prompt': prompt,
+                                              'temperature': temperature,
+                                              'max_tokens': max_tokens,
+                                              'top_p': top_p,
+                                              'frequency_penalty': frequency_penalty,
+                                              'presence_penalty': presence_penalty,
+                                              'stop': ['\n\n### Suggestions', '\n\n### New']}) as resp:
+                    response = await resp.json()
+                    return response['choices'][0]['text']
+        except Exception as e:
+            self.logger.error(f"Error getting suggestions: {e}")
+            raise e
+
+class CodeImprover:
+    def __init__(self, file_path: str):
+        self.file_path = file_path
+        self.file_handler = FileHandler(file_path)
+        self.file_type_handler = FileTypeHandler()
+        self.suggestion_handler = SuggestionHandler()
+        self.file_type = None
+        self.file_contents = None
+        self.selected_suggestions = None
+
+    async def improve_code(self):
+        self.file_contents = await self.file_handler.read_file()
+        self.file_type = self.file_type_handler.get_file_type(self.file_path)
+        self.selected_suggestions = await self.suggestion_handler.get_suggestions(f"#### List how to improve this {self.file_type}\n\n### Old {self.file_type}\n{self.file_contents}\n\n\nHow could I improve this {self.file_type}?\n")
+        self.selected_suggestions = await self.suggestion_handler.get_suggestions(f'''#### Improve the following {self.file_type} using the instructions below\n\n### Old {self.file_type}\n"""\n{self.file_contents}\n"""\n\n### Instructions\n"""\n{self.selected_suggestions}\n"""\n\n### New {self.file_type}\n"""\n''')
+        
+        await self.file_handler.write_file(self.selected_suggestions)
+
+async def main():
+    logging.basicConfig(level=logging.INFO)
+    parser = argparse.ArgumentParser(description='Code Improver')
+    parser.add_argument('file', metavar='file_path', type=str, help='path of the file to improve')
+    args = parser.parse_args()
+    file_path = args.file
+    code_improver = CodeImprover(file_path)
+    await code_improver.improve_code()
+
+if __name__ == "__main__":
+    while True:
+        asyncio.run(main())
