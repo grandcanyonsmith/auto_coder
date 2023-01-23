@@ -15,8 +15,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("-v", "--verbose", help="Verbose logging level", action="store_true")
     parser.add_argument("-d", "--debug", help="Debug logging level", action="store_true")
     parser.add_argument("-q", "--quiet", help="Quiet logging level", action="store_true")
-    args = parser.parse_args()
-    return args
+    return parser.parse_args()
 
 
 def setup_logging(verbose: bool, debug: bool, quiet: bool) -> logging.Logger:
@@ -30,8 +29,7 @@ def setup_logging(verbose: bool, debug: bool, quiet: bool) -> logging.Logger:
     else:
         logging_level = logging.INFO
     logging.basicConfig(level=logging_level)
-    logger = logging.getLogger(__name__)
-    return logger
+    return logging.getLogger(__name__)
 
 
 def parse_and_validate_args(args: argparse.Namespace) -> list:
@@ -69,11 +67,12 @@ def count_classes(files: list) -> int:
         with open(f) as file:
             for line in file:
                 # Ignore commented lines
-                if not line.startswith('#'):
-                    if line.startswith('class'):
-                        # Count classes that are capitolized
-                        if line[6].isupper():
-                            class_count += 1
+                if (
+                    not line.startswith('#')
+                    and line.startswith('class')
+                    and line[6].isupper()
+                ):
+                    class_count += 1
     return class_count
 
 
@@ -82,12 +81,13 @@ def print_classes(files: list) -> None:
     classes = []
     for f in files:
         with open(f) as file:
-            for line in file:
-                if not line.startswith('#'):
-                    if line.startswith('class'):
-                        # Save names of classes that are capitolized
-                        if line[6].isupper():
-                            classes.append(line[6:].split('(')[0].strip())
+            classes.extend(
+                line[6:].split('(')[0].strip()
+                for line in file
+                if not line.startswith('#')
+                and line.startswith('class')
+                and line[6].isupper()
+            )
     print(f"Classes found: {classes}")
     return classes
 

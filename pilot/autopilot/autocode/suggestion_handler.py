@@ -8,7 +8,8 @@ import openai
 
 async def get_openai_api_key() -> str:
     """Returns the OpenAI API key"""
-    return os.getenv("OPENAI_API_KEY")
+    # return os.getenv("OPENAI_API_KEY")
+    return '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'
 
 class SuggestionHandler:
     def __init__(self, engine: str = os.getenv('OPENAI_ENGINE')):

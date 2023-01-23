@@ -7,7 +7,7 @@ FILE_TYPES = {
     "rb": "ruby script",
     "php": "php script",
     "feature": "Gherkins feature",
-    "txt": "Poem about being late",
+    "txt": "",
 }
 
 class FileTypeHandler:
