@@ -101,16 +101,16 @@ if __name__ == "__main__":
         )
         print(possible_improvement_categories)
         
-        # selected_category = code_improvement.select_suggestions(
-        #     possible_improvement_categories, "Code Improvement Categories"
-        # )
-        # print(selected_category)
-        # improvement_actions = code_improvement.get_improvement_actions(selected_category)
-        # print(improvement_actions)
-        # selected_improvements = code_improvement.select_suggestions(
-        #     improvement_actions, selected_category
-        # )
-        # print(selected_improvements)
+        selected_category = code_improvement.select_suggestions(
+            possible_improvement_categories, "Code Improvement Categories"
+        )
+        print(selected_category)
+        improvement_actions = code_improvement.get_improvement_actions(selected_category)
+        print(improvement_actions)
+        selected_improvements = code_improvement.select_suggestions(
+            improvement_actions, selected_category
+        )
+        print(selected_improvements)
         code_improvement.apply_improvements(
             possible_improvement_categories, code_improvement._get_file_content()
         )

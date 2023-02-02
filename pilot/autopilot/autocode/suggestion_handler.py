@@ -29,6 +29,7 @@ class SuggestionHandler:
                                               'presence_penalty': presence_penalty,
                                               'stop': ['\n\n### Suggestions', '\n\n### New']}) as resp:
                     response = await resp.json()
+                    print(response)
                     return response['choices'][0]['text']
         except Exception as e:
             self.logger.error(f"Error getting suggestions: {e}")
