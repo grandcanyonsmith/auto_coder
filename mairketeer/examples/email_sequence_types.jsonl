@@ -1,0 +1,10 @@
+{ "email_sequence_type" : "Welcome Sequence", "purpose" : "To introduce new subscribers to your brand, products and services." }
+{ "email_sequence_type" : "Re-Engagement Sequence", "purpose" : "To re-engage inactive subscribers and encourage them to continue engaging with your brand." }
+{ "email_sequence_type" : "Nurturing Sequence", "purpose" : "To nurture leads and help them progress through the sales funnel." }
+{ "email_sequence_type" : "Onboarding Sequence", "purpose" : "To welcome new customers to your brand and help them get the most out of your products and services." }
+{ "email_sequence_type" : "Referral Sequence", "purpose" : "To encourage existing customers to refer your brand to their friends and family." }
+{ "email_sequence_type" : "Upsell Sequence", "purpose" : "To encourage existing customers to upgrade their products or services." }
+{ "email_sequence_type" : "Educational Sequence", "purpose" : "To educate subscribers about your brand, products and services." }
+{ "email_sequence_type" : "Customer Retention Sequence", "purpose" : "To keep customers engaged and encourage them to continue using your products and services." }
+{ "email_sequence_type" : "Lead Nurturing Sequence", "purpose" : "To nurture leads and help them progress through the sales funnel." }
+{ "email_sequence_type" : "Abandoned Cart Sequence", "purpose" : "To remind customers of items they left in their shopping cart and encourage them to complete their purchase." }

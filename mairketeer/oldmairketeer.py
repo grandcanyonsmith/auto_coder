@@ -118,7 +118,8 @@ def create_email_sequence(background_information, desired_outcome, number_of_ema
         background_information, desired_outcome, number_of_emails)
     steps_in_sequence = strip_numbers(steps_in_sequence)
     steps_in_sequence = add_numbers_infront_of_list(steps_in_sequence)
-    subject_lines = create_subject_lines_for_email_sequence(steps_in_sequence)    ctas = create_cta_for_email_sequence(subject_lines)
+    subject_lines = create_subject_lines_for_email_sequence(steps_in_sequence)    
+    ctas = create_cta_for_email_sequence(subject_lines)
 
     value_propositions = create_value_proposition_for_email_sequence(ctas)
     email_sequence = [
